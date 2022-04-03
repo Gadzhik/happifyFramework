@@ -31,6 +31,8 @@ class RegisterUser:
     confirmPasswordFieldXpath = "//input[@name='cpassword']"
     iAgreeCheckBoxXpath = "//label[@class='terms_box-label']"
     continueBtnXpath = "//button[@class='button orange uppercase js-submit']"
+    bodyContentXpath ="/html/body"
+    #bodyContentXpath = "//h1[@class='TrackPromoBnr_title skip_nav_target']"
 
     # Нужно сделать Create Your Account
     fnameFieldXpath = "//input[@id='first-name-input']"
@@ -161,4 +163,5 @@ class RegisterUser:
     def clickEmotionalImprovementsButtonXpath(self):
         self.driver.find_element(By.XPATH, self.emotionalImprovementsButtonXpath).click()
 
-
+    # def findBodyElementXpath(self):
+    #     self.driver.find_element(By.XPATH, self.bodyContentXpath)

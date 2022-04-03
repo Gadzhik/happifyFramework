@@ -5,6 +5,9 @@ from pageObjects.LoginPage import LoginPage
 from pageObjects.RegisterNewUser import RegisterUser
 from utilities.readProperties import ReadConfig
 from utilities.customLogger import LogGen
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 import string
 import random
 
@@ -37,7 +40,9 @@ class Test_003_RegisterUser:
 
 # Добавим сюда прохождение ассессмента
         self.reguser = RegisterUser(self.driver)
+        time.sleep(2)
         self.reguser.clickOnGetStartedBtn()
+        time.sleep(2)
         self.reguser.clickOnStartedTodayBtn()
         time.sleep(2)
         self.reguser.clickOnGenderRadioBtn()
@@ -108,7 +113,7 @@ class Test_003_RegisterUser:
         self.reguser.clickStartFirstTrackXpath()
 
         self.logger.info("***** Register successful *****")
-
+        time.sleep(2)
         self.reguser.clickHowHappifyWorksButtonXpath()
         time.sleep(2)
 
@@ -118,10 +123,29 @@ class Test_003_RegisterUser:
         self.reguser.clickEmotionalImprovementsButtonXpath()
         time.sleep(2)
 
+        self.logger.info("********** Saving user info **********")
+
+        self.logger.info("********** User validation started **********")
+
+        self.msg = self.driver.find_element(By.XPATH, '/html/body').text
+
+        print(self.msg)
+        if 'START FREE TRACK' in self.msg:
+            assert True == True
+            self.logger.info("********** User register passed **********")
+        else:
+            self.driver.save_screenshot("/home/nnm/PycharmProjects/happifyFramework/Screenshots" + "user_register_scr.png")
+            self.logger.error("********** User Register Failed **********")
+            assert True == False
+
 # Random email generator
 # def random_generator(size=8, chars=string.ascii_lowercase + string.digits):
 #     return ''.join(random.choice(chars) for x in range(size))
 
+
 # Time now
 dat_obj = datetime.datetime.now()
 dt_str = dat_obj.strftime("%f")
+
+
+# time 42.25
